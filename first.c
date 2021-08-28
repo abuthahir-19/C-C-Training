@@ -1,19 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-
-int included (int posArr[], int pos, int size) {
-    int found = 0;
-
-    for (int i = 0; i < size; i++) {
-        if (posArr[i] == pos) {
-            found = 1;
-            break;
-        }
-    }
-    return found;
-}
-
 int main() 
 {
     int n;
