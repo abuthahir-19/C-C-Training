@@ -13,6 +13,7 @@ int main()
         }
     }
 
+    printf ("Output : \n");
     int x = 0, firstTime = 0;
     if (k > 1) {
         for (int i = 0; i < n;) {
@@ -47,10 +48,13 @@ int main()
 /**
 10
 2 5 16 18 22 17 90 24 21 22
+Output : 
+2 5 22 18 16 17 24 90 21 22 
 
 
 
 5
 6 -8 -5 2 -18
-
+Output :      
+6 -8 -5 2 -18 
 **/
