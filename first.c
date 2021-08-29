@@ -13,25 +13,31 @@ int main()
         }
     }
 
-    int x = 0, firstTime = 0, moveCount = 0;
-    for (int i = 0; i < n; i++) {
-        if (i == oddPos[x] && x < k) {
-            if (firstTime == 0) {
+    int x = 0, firstTime = 0;
+    if (k > 1) {
+        for (int i = 0; i < n;) {
+            if (i >= oddPos[0] && i <= oddPos[k-1] && x < k) {
+                if (firstTime == 0) {
+                    printf ("%d ", a[i]);
+                    firstTime++;
+                    i++;
+                }
+                int start = oddPos[x++], end = oddPos[x];
+                for (int j = end-1; j > start; j--) {
+                    printf ("%d ", a[j]);
+                    i++;
+                }
+                printf ("%d ", a[end]);
+                i++;
+            }
+            else {
                 printf ("%d ", a[i]);
-                firstTime++;
-                moveCount++;
+                i++;
             }
-            int start = oddPos[x++];
-            int end = oddPos[x];
-            for (int j = end-1; j > start; j--) {
-                printf ("%d ", a[j]);
-                moveCount++;
-            }
-            printf ("%d ", a[end]);
-            moveCount++;
-            i += (moveCount-1);
         }
-        else {
+    }
+    else {
+        for (int i = 0; i < n; i++) {
             printf ("%d ", a[i]);
         }
     }
@@ -42,5 +48,9 @@ int main()
 10
 2 5 16 18 22 17 90 24 21 22
 
+
+
+5
+6 -8 -5 2 -18
 
 **/
