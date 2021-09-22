@@ -12,8 +12,7 @@ void recalculateArrivalTime (int speed, int dist, int hour, int min) {
         hour += 1;
         minute = minute % 60;
     }
-    if ((hour > 9 && minute > 30) || (hour > 9) || (minute > 30)) {
-        printf ("%d:%d\n", hour, minute);
+    if ((hour > 9 && minute > 30) || (hour > 9 && minute < 30)) {
         printf ("NO");
     }
     else {
@@ -63,9 +62,15 @@ int main ()
         if (mm > 60) {
             mm = mm % 60;
         }
-        if ((hh <= 9 && mm <= 30) || (hh <= 9 && mm <= 60)) {
+        if ((hh > 9 && mm > 30) || (hh > 9) || (mm > 30)) {
+            avg = avg + 20;
+            recalculateArrivalTime (avg, distance, currHour, currMin);
+        }
+
+        else if ((hh <= 9 && mm <= 30) || (hh <= 9 && mm <= 60)) {
             printf ("%d:%d", hh, mm);
         }
+        
         else printf ("NO");
     }
     return 0;
