@@ -64,6 +64,7 @@ void reorder (char str[], char prefix[], char suffix[]) {
     }
     checkForPrefixAndSuffix(str, prefix, suffix);
 }
+
 int main ()
 {
     char str[101];
