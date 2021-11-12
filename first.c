@@ -1,60 +1,65 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
+
+int power (int base, int exp) {
+    int res = 1;
+    while (exp != 0) {
+        res = res * base;
+        exp--;
+    }
+    return res;
+}
+int decimal (int b) {
+    int p = 0, d = 0;
+    while (b != 0) {
+        d += (b % 10) * (power (2, p));
+        p++;
+        b/=10;
+    }
+    return d;
+}
+
+int includes (int size, int indexes[], int index) {
+    for (int i = 0; i < size; i++) {
+        if (indexes[i] == index) return 1;
+    }
+    return 0;
+}
+
+int getIntegerValue (int n) {
+    int ar[1001], k =0, b = 0, indexes[1001], v = 0, x = 0, added = 0;
+    while (n != 0) {
+        ar[k++] = n % 10;
+        n/=10;
+    }
+    for (int i = k-1; i >= 0; i--) {
+        if (ar[i] == 1 || ar[i] == 0) {
+            b = b * 10 + ar[i];
+            indexes[v++] = i;
+        }
+    }
+    for (int i = k-1; i >= 0; i--) {
+        if (!includes(v, indexes, i)) {
+            x = x * 10 + ar[i];
+        }
+        else if (includes (v, indexes, i) && !added){
+            x = x * 10 + decimal(b);
+            added = 1;
+        }
+    }
+    return x;
+}
 
 int main() 
 {
     int n;
     scanf ("%d", &n);
-    int a[n], oddPos[n], k = 0;
-    for (int i = 0; i < n; i++) {
-        scanf ("%d", &a[i]);
-        if (a[i] % 2 != 0) {
-            oddPos[k++] = i;
-        }
-    }
-
-    printf ("Output : \n");
-    int x = 0, firstTime = 0;
-    if (k > 1) {
-        for (int i = 0; i < n;) {
-            if (i >= oddPos[0] && i <= oddPos[k-1] && x < k) {
-                if (firstTime == 0) {
-                    printf ("%d ", a[i]);
-                    firstTime++;
-                    i++;
-                }
-                int start = oddPos[x++], end = oddPos[x];
-                for (int j = end-1; j > start; j--) {
-                    printf ("%d ", a[j]);
-                    i++;
-                }
-                printf ("%d ", a[end]);
-                i++;
-            }
-            else {
-                printf ("%d ", a[i]);
-                i++;
-            }
-        }
-    }
-    else {
-        for (int i = 0; i < n; i++) {
-            printf ("%d ", a[i]);
-        }
-    }
+    int x = getIntegerValue(n);
+    printf ("%d", x);
     return 0;
 }
 
 /**
-10
-2 5 16 18 22 17 90 24 21 22
-Output : 
-2 5 22 18 16 17 24 90 21 22 
-
-
-
-5
-6 -8 -5 2 -18
-Output :      
-6 -8 -5 2 -18 
+9101485
 **/
