@@ -5,9 +5,6 @@
 char* getAbbreviation (char* str) {
     char* abb = (char*)malloc(sizeof(char));
     int  k = 0;
-    // if (str[0] >= 'a' && str[0] <= 'z')
-    // abb[k++] = str[0]-32;
-    // else abb[k++] = str[0];
     for (int i = 0; i < strlen(str); i++) {
         if (i == 0) {
             if (str[i] >= 'a' && str[i] <= 'z') {
