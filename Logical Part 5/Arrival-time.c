@@ -1,84 +1,61 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
+#include <limits.h>
+#include <math.h>
 
-void recalculateArrivalTime (int speed, int dist, int hour, int min) {
-    float duration; 
-    int minute;
-    duration = (float) dist / speed;
-    minute = duration * 60; 
-    minute = minute + min;
-    if (minute > 60) {
-        hour += 1;
-        minute = minute % 60;
-    }
-    if ((hour > 9 && minute > 30) || (hour > 9 && minute < 30)) {
-        printf ("NO");
-    }
-    else {
-        printf ("%d:%d", hour, minute);
-    }
-}
-int main ()
+int main () 
 {
-    int avg, distance, hh, mm, colonIndex = 0, mins, currHour, currMin; 
-    float dur;
-    char time[101], befColon[51], aftColon[51];
-    scanf ("%d %s %d", &avg, time, &distance);
-    dur = (float) distance / avg ;
-    mins = dur * 60;
-    int b = 0, a = 0;
-    for (int i = 0; i < strlen (time); i++) {
-        if (time[i] == ':'){
-            colonIndex = 1;
-            continue;
-        }
-        if (colonIndex == 0)
-        befColon[b++] = time[i];
-        else {
-            aftColon[a++] = time[i];
-        }
+    int speed, hh, mm, dist, th, tm, am = 1;
+    scanf ("%d %d:%d %d", &speed, &hh, &mm, &dist);
+    th = hh, tm = mm;
+    float t = (float) dist / speed * (60.0);
+    int newHour = t/60;
+    int newMin = (int)t % 60;
+    hh = hh + newHour;
+    mm = mm + newMin;
+    if (hh >= 12) {
+        hh = hh % 12;
+        am = !am;
     }
-    befColon[b] = '\0';
-    aftColon[a] = '\0';
-    hh = atoi (befColon);
-    mm = atoi (aftColon);
-    
-    currHour = hh;
-    currMin = mm;
-    mm = mm + mins;
-    if(mm > 60) {
-        hh += 1;
+    if (mm >= 60) {
+        hh+=1;
         mm = mm % 60;
-        if ((hh > 9 && mm > 30) || (hh > 9) || (mm > 30)) {
-            avg = avg + 20;
-            recalculateArrivalTime (avg, distance, currHour, currMin);
-        }
-        else {
-            printf ("%d:%d", hh, mm);
-        }
+    }
+    if ((hh == 9 && mm < 30) || (hh < 9 && mm >= 1 && mm <= 59) && am) {
+        printf ("%d:%d", hh, mm);
     }
     else {
-        if (mm > 60) {
-            mm = mm % 60;
+        speed = speed + 20;
+        am = 1;
+        float t = (float) dist / speed * (60.0);
+        int newHour = t/60;
+        int newMin = (int)t % 60;
+        th = th + newHour;
+        tm = tm + newMin;
+        if (th >= 12) {
+            th = th % 12;
+            am = !am;
         }
-        if ((hh > 9 && mm > 30) || (hh > 9) || (mm > 30)) {
-            avg = avg + 20;
-            recalculateArrivalTime (avg, distance, currHour, currMin);
+        if (tm >= 60) {
+            th+=1;
+            tm = tm % 60;
         }
-
-        else if ((hh <= 9 && mm <= 30) || (hh <= 9 && mm <= 60)) {
-            printf ("%d:%d", hh, mm);
+        if ((th == 9 && tm < 30) || (th < 9 && tm >= 1 && tm <= 59) && am) {
+            printf ("%d:%d", th, tm);
         }
-        
-        else printf ("NO");
+        else {
+            printf ("NO");
+        }
     }
     return 0;
 }
 
 /**
-60 8:15 40
-
+60 8:45 40
 
 30 9:10 60
-**/
+
+30 12:45 60
+
+30 8:05 45
+*/
