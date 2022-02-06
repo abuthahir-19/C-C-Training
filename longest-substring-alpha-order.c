@@ -13,7 +13,7 @@ int main ()
         char subString[1001]; int len = 0;
         subString[len++] = str[i];
         for (int j = i + 1; j < strlen(str); j++) {
-            if (str[j-1] < str[j])  {
+            if (str[j-1] <= str[j])  {
                 subString[len++] = str[j];
                 i++;
             }
@@ -34,6 +34,8 @@ int main ()
 /**
 
 acegjdbmprtzdsvx
+
+google
 
 airport
 
