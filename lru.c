@@ -32,7 +32,6 @@ int lruMissCount(int maxSize, int *pages, int len)
 {
     int cache[maxSize], k = 0;
     int missCount = 0;
-    int leastIndex = 0;
     int recent[len], ind = 0;
     for (int i = 0; i < len; i++) {
         int value = pages[i], flag = 0;
