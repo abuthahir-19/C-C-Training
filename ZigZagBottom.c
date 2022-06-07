@@ -12,6 +12,7 @@ int main()
             scanf ("%d", &mat[i][j]);
         }
     }
+    
     int i = r-1, j = c-1;
     while (i >= 0 && j >= 0) {
         printf ("%d ", mat[i][j]);
