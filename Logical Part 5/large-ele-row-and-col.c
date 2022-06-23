@@ -25,6 +25,7 @@ int main()
         row[i] = rowMax;
         col[i] = colMax;
     }
+
     printf ("Ouput : \n");
 
     for (int i = 0; i < n; i++) {
